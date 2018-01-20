@@ -1,0 +1,24 @@
+{
+  "name": "micro-bot",
+  "version": "1.0.0",
+  "description": "A micro-bot ",
+  "main": "index.js",
+  "scripts": {
+    "test": "ava test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/paulogdm/micro-bot.git"
+  },
+  "author": "paulogdm",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/paulogdm/micro-bot/issues"
+  },
+  "homepage": "https://github.com/paulogdm/micro-bot#readme",
+  "dependencies": {
+    "chalk": "^2.3.0",
+    "discord.js": "^11.3.0",
+    "lodash": "^4.17.4"
+  }
+}
