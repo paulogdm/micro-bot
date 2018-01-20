@@ -1,9 +1,10 @@
 {
   "name": "micro-bot",
   "version": "1.0.0",
-  "description": "A micro-bot ",
+  "description": "A micro-bot",
   "main": "index.js",
   "scripts": {
+    "start": "micro index.js",
     "test": "ava test.js"
   },
   "repository": {
@@ -19,6 +20,9 @@
   "dependencies": {
     "chalk": "^2.3.0",
     "discord.js": "^11.3.0",
-    "lodash": "^4.17.4"
+    "lodash": "^4.17.4",
+    "micro": "^9.1.0",
+    "microrouter": "^3.0.0",
+    "qs": "^6.5.1"
   }
 }
