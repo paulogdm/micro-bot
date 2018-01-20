@@ -3,9 +3,6 @@ const { router, get } = require('microrouter')
 const { send } = require('micro')
 var client
 
-process.BOT_LOCK = false
-
-// pong
 const pong = msg => msg.reply('Pong!')
 
 const msgHandler = msg => {
@@ -31,8 +28,10 @@ const launchDiscordClient = async (token) => {
 }
 
 const setup = async (req, res) => {
+  // Query provided by microrouter
   const { token } = req.query
 
+  // No token is provided. Bad Params man...
   if (!token) {
     return send(res, 400, {err: 'Bad Params',
       message: 'Please provide a token.',
@@ -45,7 +44,7 @@ const setup = async (req, res) => {
   return launchDiscordClient(token)
 }
 
-const notfound = (req, res) => send(res, 404, 'Not found route')
+const notfound = (req, res) => send(res, 404, 'Not Found =(')
 
 module.exports = router(
   get('/new', setup),
