@@ -1,7 +1,9 @@
 const Discord = require('discord.js')
 const { router, get } = require('microrouter')
 const { send } = require('micro')
-var client
+const Over = require('oversmash')
+const oversmash = Over.default()
+let client
 
 const pong = msg => msg.reply('Pong!')
 
@@ -15,9 +17,35 @@ const msgHandler = msg => {
   if (str === '!ping') {
     return pong(msg)
   }
+
+  if (str.includes('!player')) {
+    return fetchPlayer(msg)
+  }
+}
+
+const fetchPlayer = async msg => {
+  const str = msg.toString()
+
+  if (!str.includes('#')) msg.reply('Hmmm, something is not right. Try !player "nick#12345"')
+
+  const player = str.split(' ').pop().split('#').join('-')
+  try {
+    const {name, stats} = await oversmash.playerStats(player, 'us', 'pc')
+
+    if (stats && stats.competitiveRank) {
+      msg.reply(name.split('-').join('#') + ' is SR' + stats.competitiveRank)
+    } else {
+      msg.reply(name.split('-').join('#') + ' not ranked yet...')
+    }
+  } catch (err) {
+    console.error(err)
+    msg.reply('I\'m dead sir...')
+  }
 }
 
 const launchDiscordClient = async (token) => {
+  if (client) return
+
   client = new Discord.Client()
 
   client.on('message', msgHandler)
