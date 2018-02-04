@@ -1,9 +1,15 @@
-const Discord = require('discord.js')
-const { router, get } = require('microrouter')
+// Micro deps
 const { send } = require('micro')
+const { router, get } = require('microrouter')
+
+// Discord
+const Discord = require('discord.js')
+const client = new Discord.Client()
+client.login(process.env.TOKEN)
+
+// Utils
 const Over = require('oversmash')
 const oversmash = Over.default()
-let client
 
 const pong = msg => msg.reply('Pong!')
 
@@ -18,10 +24,12 @@ const msgHandler = msg => {
     return pong(msg)
   }
 
-  if (str.includes('!player')) {
+  if (str.includes('!sr')) {
     return fetchPlayer(msg)
   }
 }
+
+client.on('message', msgHandler)
 
 const fetchPlayer = async msg => {
   const str = msg.toString()
@@ -43,38 +51,8 @@ const fetchPlayer = async msg => {
   }
 }
 
-const launchDiscordClient = async (token) => {
-  if (client) return
-
-  client = new Discord.Client()
-
-  client.on('message', msgHandler)
-
-  await client.login(token)
-
-  return client.user.tag + ' is alive!'
-}
-
-const setup = async (req, res) => {
-  // Query provided by microrouter
-  const { token } = req.query
-
-  // No token is provided. Bad Params man...
-  if (!token) {
-    return send(res, 400, {err: 'Bad Params',
-      message: 'Please provide a token.',
-      data: {
-        eg: '.../new?token=<BOTTOKEN>'
-      }
-    })
-  }
-
-  return launchDiscordClient(token)
-}
-
 const notfound = (req, res) => send(res, 404, 'Not Found =(')
 
 module.exports = router(
-  get('/new', setup),
   get('/*', notfound)
 )

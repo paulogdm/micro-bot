@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "micro index.js",
+    "deploy": "now -e TOKEN=@discordtoken --public",
     "test": "ava test.js"
   },
   "repository": {
