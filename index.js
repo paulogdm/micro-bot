@@ -34,7 +34,10 @@ client.on('message', msgHandler)
 const fetchPlayer = async msg => {
   const str = msg.toString()
 
-  if (!str.includes('#')) msg.reply('Hmmm, something is not right. Try !player "nick#12345"')
+  if (!str.includes('#')){
+    msg.reply('Hmmm, something is not right. Try !sr "nick#12345"')
+    return
+  } 
 
   const player = str.split(' ').pop().split('#').join('-')
   try {

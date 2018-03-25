@@ -40,7 +40,7 @@ npm -g i now
 Deploy
 
 ```
-now
+npm run deploy
 ```
 
 ## Built With
